@@ -85,7 +85,31 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     public function notifications()
+{
+    return $this->morphMany(\Illuminate\Notifications\DatabaseNotification::class, 'notifiable');
+}
+
+
+public function cryptoAccounts()
     {
-        return $this->hasMany(Notification::class);
+        return $this->hasMany(Account::class)->where('type', 'crypto')->where('status', 'active');
+    }
+
+    // Get only fiat accounts
+    public function fiatAccounts()
+    {
+        return $this->hasMany(Account::class)->where('type', 'fiat')->where('status', 'active');
+    }
+
+    // Get total crypto portfolio value (you'd need to implement price fetching)
+    public function getTotalCryptoValueAttribute()
+    {
+        return $this->cryptoAccounts->sum('balance');
+    }
+
+    // Get active crypto wallets count
+    public function getActiveCryptoWalletsCountAttribute()
+    {
+        return $this->cryptoAccounts()->count();
     }
 }

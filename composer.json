@@ -9,7 +9,9 @@
         "php": "^8.2",
         "laravel/fortify": "^1.28",
         "laravel/framework": "^12.0",
-        "laravel/tinker": "^2.10.1"
+        "laravel/tinker": "^2.10.1",
+        "livewire/flux": "^2.2",
+        "livewire/livewire": "^3.6"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -25,8 +27,13 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+        "app/Helpers/helpers.php"
+        ]
     },
+ 
+
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
@@ -38,6 +45,7 @@
             "@php artisan clear-compiled",
             "@php artisan package:discover --ansi"
         ],
+        "serve8081": "php artisan serve --port=8081",
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
         ],
